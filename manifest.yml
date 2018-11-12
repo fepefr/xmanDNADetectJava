@@ -1,0 +1,10 @@
+---
+applications:
+- instances: 1
+  timeout: 180
+  name: xman
+  buildpack: java_buildpack
+  path: ./target/xman-1.0-SNAPSHOT.jar
+  memory: 1024M
+  domain: mybluemix.net
+  host: boloHost
