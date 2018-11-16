@@ -64,10 +64,12 @@ public class DnaBusiness {
 	}
 
 	public VerificacoesWrapper getStats() {
-		VerificacoesWrapper result = new VerificacoesWrapper();	
-		int countHum = store.countHum();
-		int countMut = store.countMut();
-		int ratio = countHum / countMut;
+		VerificacoesWrapper result = new VerificacoesWrapper();
+		Collection<Dna> all = store.getAll();
+		long size = all.size();
+		double countMut = all.stream().filter(dna -> dna.isMutante()==true).count();
+		double countHum = size - countMut;
+		double ratio = countMut / countHum;
 		result.setCount_human_dna(countHum);
 		result.setCount_mutant_dna(countMut);
 		result.setRatio(ratio);
