@@ -1,9 +1,14 @@
 package vo.v1;
 public class Dna{
 
-	private String _id;
-   	private String _dna;
- 
+    private String _id;
+    private String _rev;
+    private String dna = null;
+
+    public Dna() {
+        this.setDna("");
+    }
+
     /**
      * Gets the ID.
      * 
@@ -23,13 +28,32 @@ public class Dna{
         this._id = _id;
     }
 
+    /**
+     * Gets the revision of the document.
+     * 
+     * @return The revision of the document.
+     */
+    public String get_rev() {
+        return _rev;
+    }
+
+    /**
+     * Sets the revision.
+     * 
+     * @param _rev
+     *            The revision to set.
+     */
+    public void set_rev(String _rev) {
+        this._rev = _rev;
+    }
 
 	public String getDna() {
-		return _dna;
+		return dna;
 	}
 
 	public void setDna(String dna) {
-		this._dna = dna;
+		this.dna = dna;
 	}
-		
+   	
+   	
 }
