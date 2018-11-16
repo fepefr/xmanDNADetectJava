@@ -25,11 +25,11 @@ public class Dna{
 
 
 	public String getDna() {
-		return dna;
+		return _dna;
 	}
 
 	public void setDna(String dna) {
-		this.dna = dna;
+		this._dna = dna;
 	}
 		
 }

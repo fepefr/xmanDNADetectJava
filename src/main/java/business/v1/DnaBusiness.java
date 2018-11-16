@@ -1,47 +1,52 @@
 package business.v1;
 
-import store.v1.Dna.java;
-import store.v1.store.DnaStore;
-import store.v1.store.DnaStoreFactory;
-
 import java.util.Arrays;
-public class DnaBusiness{
-	
-		public boolean isMutant(final String[] dna, final String[] seqDnaMut) {
+
+import store.v1.DnaStore;
+import store.v1.DnaStoreFactory;
+import vo.v1.Dna;
+
+public class DnaBusiness {
+
+	// Our database store
+	DnaStore store = DnaStoreFactory.getInstance();
+	private static final String[] DNA_MUT = { "AAAA", "CCCC", "TTTT", "GGGG" };
+	 
+	public boolean isMutant(final String[] dna) {
 		int seqDnaMutCount = 0;
 		// Check dna values horizontally
-		seqDnaMutCount += countDnaMutant(dna, seqDnaMut);
+		seqDnaMutCount += countDnaMutant(dna, DNA_MUT);
 		if (seqDnaMutCount > 1)
 			return true;
 
 		// Check dna values vertically
 		char[][] dna2DArray = transformTo2DArray(dna, false);
 		String[] dnaVert = transformToVertArray(dna2DArray);
-		seqDnaMutCount += countDnaMutant(dnaVert, seqDnaMut);
+		seqDnaMutCount += countDnaMutant(dnaVert, DNA_MUT);
 		if (seqDnaMutCount > 1)
 			return true;
 
 		// Check dna values diagonally
 		String[] dnaDiagonal = transformToDiagArray(dna2DArray);
-		seqDnaMutCount += countDnaMutant(dnaDiagonal, seqDnaMut);
+		seqDnaMutCount += countDnaMutant(dnaDiagonal, DNA_MUT);
 		if (seqDnaMutCount > 1)
 			return true;
 
 		// Check dna values diagonally reverse
 		char[][] dna2DArrayRev = transformTo2DArray(dna, true);
 		String[] dnaDiagRev = transformToDiagArray(dna2DArrayRev);
-		seqDnaMutCount += countDnaMutant(dnaDiagRev, seqDnaMut);
+		seqDnaMutCount += countDnaMutant(dnaDiagRev, DNA_MUT);
 		if (seqDnaMutCount > 1)
 			return true;
 		return false;
 	}
-	
+
 	public boolean newDna(Dna dna) {
-        if(store == null) {
-            return String.format("Hello %s!", dna.getDna());
-        }
-        return store.persist(dna);        
-    }
+		if (store == null) {
+			return false;
+		}
+		return store.persist(dna) != null;
+	}
 
 	private String[] transformToVertArray(final char[][] dna2dArray) {
 

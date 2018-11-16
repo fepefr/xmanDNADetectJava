@@ -1,4 +1,6 @@
-package application.rest.v1;
+package rest.v1;
+
+import java.util.Arrays;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,30 +10,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import business.v1.DnaBusiness;
+import vo.v1.Dna;
 
+
+/**
+ * @author Fernando
+ *
+ */
 @RestController
 public class MutantController {
 
-	//Our database store
-    DnaStore store = DnaStoreFactory.getInstance();
-    DnaBusiness dnaBusiness = new DnaBusiness();
+	DnaBusiness dnaBusiness = new DnaBusiness();
 
 	@RequestMapping(value="mutant", method = RequestMethod.POST, 
 		    consumes = "application/json")
 	public @ResponseBody ResponseEntity<String> mutant(@RequestBody DnaWrapper dna){
-		String[] seqDnaMut = { "AAAA", "CCCC", "TTTT", "GGGG" };
-		if (dnaBusiness.isMutant(dna.getDna(), seqDnaMut)){
-			Dna dnaVo = new Dna();
-			dna.setDna(new String(dna.toString());
-			if (dnaBusiness.newDna(dnaVo))
+		if (dnaBusiness.isMutant(dna.getDna())){
+			Dna dnaVO = new Dna();
+			dnaVO.setDna(Arrays.toString(dna.getDna()));
+			if (dnaBusiness.newDna(dnaVO))
 				return new ResponseEntity<String>(HttpStatus.OK);
 			else
-				return return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
+				return new ResponseEntity<String>("Análise deste DNA já existe no banco de dados", HttpStatus.FORBIDDEN);
 		}else
 			return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
 	}
 
-    @GET
+/*    @GET
     @Path("/")
     @Produces({"application/json"})
     public String getDnas() {
@@ -48,6 +54,6 @@ public class MutantController {
             }
         }
         return new Gson().toJson(names);
-    }	
+    }	*/
 	
 }
