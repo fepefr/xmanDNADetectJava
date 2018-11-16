@@ -4,6 +4,7 @@ public class Dna{
     private String _id;
     private String _rev;
     private String dna = null;
+    private boolean isMutante;
 
     public Dna() {
         this.setDna("");
@@ -53,6 +54,14 @@ public class Dna{
 
 	public void setDna(String dna) {
 		this.dna = dna;
+	}
+
+	public boolean isMutante() {
+		return isMutante;
+	}
+
+	public void setMutante(boolean isMutante) {
+		this.isMutante = isMutante;
 	}
    	
    	

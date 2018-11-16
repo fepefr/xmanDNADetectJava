@@ -1,4 +1,4 @@
-package rest.v1;
+package application.rest.v1;
 
 public class DnaWrapper {
 	private String[] dna;

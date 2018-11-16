@@ -61,4 +61,10 @@ public interface DnaStore {
      * @throws Exception 
      */
     public int count() throws Exception;
+
+
+	int countMut();
+
+
+	int countHum();
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
+import com.cloudant.client.api.Search;
 import com.google.gson.JsonObject;
 
 import vo.v1.Dna;
@@ -77,6 +78,19 @@ public class CloudantDnaStore implements DnaStore{
     @Override
     public Dna get(String id) {
         return db.find(Dna.class, id);
+    }
+    
+    @Override
+    public int countHum() {
+    	//db.getAllDocsRequestBuilder().includeDocs(false).getDocsAs(Dna.class);
+        Search counts = db.search("isMutant").includeDocs(false).counts(new String[]{"dna"});
+        return 0;
+    }
+    @Override
+    public int countMut() {
+    	//db.getAllDocsRequestBuilder().includeDocs(false).getDocsAs(Dna.class);
+        Search counts = db.search("isMutant").includeDocs(false).counts(new String[]{"dna"});
+        return 0;
     }
 
     @Override
